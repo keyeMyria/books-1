@@ -1,0 +1,6 @@
+.books {
+  text-align: left;
+}
+.book-done {
+    text-decoration: line-through;
+}

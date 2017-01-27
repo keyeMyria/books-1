@@ -4,18 +4,18 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import BooksListItem from './booksListItem';
-import { completeBook } from '../actions';
+import { completeBook } from '../../actions';
 
-import './books.css';
+import './books.scss';
 
 class BooksList extends Component {
-    constructor( props ) {
+    constructor(props) {
         super(props);
 
-        this.onBookClick = this.onBookClick.bind( this );
+        this.onBookClick = this.onBookClick.bind(this);
     }
-    onBookClick( id ) {
-        this.props.completeBook( id );
+    onBookClick(id) {
+        this.props.completeBook(id);
     }
 
     renderList() {
@@ -23,23 +23,29 @@ class BooksList extends Component {
             b => <BooksListItem key={b.id} book={b} onClick={this.onBookClick} />
         );
     }
+
     render() {
         return (
             <div className="books">
                 <span>books are here</span>
                 {this.renderList()}
             </div>
-        )
+        );
     }
 }
 
-let mapStateToProps = function( store ) {
+BooksList.propTypes = {
+    books: React.PropTypes.array,
+    completeBook: React.PropTypes.func,
+};
+
+const mapStateToProps = function props(store) {
     return {
-        books: store.books.list
-    }
-}
-let mapDispatchToProps = function( dispatch ) {
+        books: store.shelf.list,
+    };
+};
+const mapDispatchToProps = function actions(dispatch) {
     return bindActionCreators({ completeBook }, dispatch);
-}
+};
 
-export default connect( mapStateToProps, mapDispatchToProps )( BooksList );
+export default connect(mapStateToProps, mapDispatchToProps)(BooksList);

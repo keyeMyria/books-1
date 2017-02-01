@@ -35,3 +35,5 @@ export default {
     getBooks,
     shelfName: defaultName,
 };
+export const API_KEY = 'AIzaSyB00qBN6HfwOtaVZmyiPlEG4TrnewQ0DZc';
+export const searchURI = 'https://www.googleapis.com/books/v1/volumes';

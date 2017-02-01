@@ -1,5 +1,7 @@
-import database from '../common/db.js';
-import { GET_BOOKS_SUCCESS, GET_BOOKS_FAIL, GET_BOOKS_FETCH } from '../common/actionTypes';
+import axios from 'axios';
+
+import database, { API_KEY, searchURI } from '../common/db.js';
+import { GET_BOOKS_SUCCESS, GET_BOOKS_FAIL, GET_BOOKS_FETCH, GET_BOOK_SUGGESTS, GET_BOOK_SUGGEST_PREVIEW } from '../common/actionTypes';
 
 function getBookIsSucceed(payload) {
     console.log('getBookIsSucceed', payload);
@@ -34,6 +36,20 @@ export default function getBooks() {
                     books => dispatch(getBookIsSucceed(books)),
                     e => dispatch(getBookIsFailed(e))
                  );
+    };
+}
+
+export function getBookSuggests(title) {
+    return {
+        type: GET_BOOK_SUGGESTS,
+        payload: axios.get(`${searchURI}?key=${API_KEY}&q=${title}`),
+    };
+}
+
+export function getBookSuggestPreview(id) {
+    return {
+        type: GET_BOOK_SUGGEST_PREVIEW,
+        payload: axios.get(`${searchURI}/${id}?key=${API_KEY}`),
     };
 }
 

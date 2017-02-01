@@ -8,10 +8,16 @@ import {
     ADD_BOOK_FETCH,
     ADD_BOOK_SUCCESS,
     ADD_BOOK_FAIL,
+
+    GET_BOOK_SUGGESTS,
+    GET_BOOK_SUGGEST_PREVIEW,
 } from '../common/actionTypes';
 
 const initState = {
     list: [],
+    suggests: [],
+    suggestPreview: '',
+
     activeBook: null,
 
     addIsSucceed: false,
@@ -65,9 +71,20 @@ function fail(pfx) {
         [`${pfx}IsFailed`]: false,
     };
 }
-
 export default function (state = initState, action) {
     switch (action.type) {
+    case `${GET_BOOK_SUGGEST_PREVIEW}_FULFILLED`: {
+        return {
+            ...state,
+            suggestPreview: action.payload.data,
+        };
+    }
+    case `${GET_BOOK_SUGGESTS}_FULFILLED`: {
+        return {
+            ...state,
+            suggests: action.payload.data,
+        };
+    }
     case COMPLETE_BOOK: {
         return {
             ...state,

@@ -4,7 +4,6 @@ import './App.scss';
 import BookAddInput from './components/bookAdd/bookAddInput';
 import BooksList from './components/bookList/booksList';
 
-
 function App() {
     return (
         <div className="App">

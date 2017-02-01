@@ -4,6 +4,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 // import firebase from 'firebase';
 import thunk from 'redux-thunk';
+import promise from 'redux-promise-middleware';
 
 import App from './App';
 import './index.scss';
@@ -22,7 +23,7 @@ import rootReducer from './reducers';
 const store = createStore(
     rootReducer,
     compose(
-        applyMiddleware(thunk),
+        applyMiddleware(promise(), thunk),
         window.devToolsExtension ? window.devToolsExtension() : f => f
     )
 );

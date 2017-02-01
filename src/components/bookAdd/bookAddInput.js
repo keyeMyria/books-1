@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import addBook from '../../actions/addBookAction';
+import { getBookSuggests } from '../../actions/getBooksActions';
+
 
 class BookAddInput extends Component {
     constructor(props) {
@@ -17,6 +19,7 @@ class BookAddInput extends Component {
     addBookHandler() {
         this.setState(this.initialState);
         this.props.addBook(this.state);
+        this.props.getBookSuggests(this.state.title);
     }
 
     render() {
@@ -38,12 +41,13 @@ class BookAddInput extends Component {
 
 BookAddInput.propTypes = {
     addBook: React.PropTypes.func,
+    getBookSuggests: React.PropTypes.func,
     addingBook: React.PropTypes.bool,
     gettingBooks: React.PropTypes.bool,
 };
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ addBook }, dispatch);
+    return bindActionCreators({ addBook, getBookSuggests }, dispatch);
 }
 function mapStateToProps(state) {
     return {

@@ -1,40 +1,100 @@
-import { COMPLETE_BOOK, ADD_BOOK } from '../actions';
+import {
+    COMPLETE_BOOK,
+
+    GET_BOOKS_FETCH,
+    GET_BOOKS_SUCCESS,
+    GET_BOOKS_FAIL,
+
+    ADD_BOOK_FETCH,
+    ADD_BOOK_SUCCESS,
+    ADD_BOOK_FAIL,
+} from '../common/actionTypes';
 
 const initState = {
-    list: [
-        {
-            id: 0,
-            title: 'Harry Potter',
-            started: true,
-        },
-        {
-            id: 1,
-            title: 'Bible',
-            started: true,
-        },
-        {
-            id: 2,
-            title: 'The Stories of the Meekhan Marches. North – South',
-            started: true,
-        },
-    ],
+    list: [],
     activeBook: null,
+
+    addIsSucceed: false,
+    addIsFetching: false,
+    addIsFailed: false,
+
+    getIsSucceed: false,
+    getIsFetching: false,
+    getIsFailed: false,
 };
+
+function listReducer(list, action) {
+    switch (action.type) {
+    case GET_BOOKS_SUCCESS: {
+        return action.payload;
+    }
+    case ADD_BOOK_SUCCESS: {
+        return [action.payload, ...list];
+    }
+    case COMPLETE_BOOK: {
+        const newList = [...list];
+        const item = newList[action.payload];
+        item.started = !item.started;
+        newList[action.payload] = item;
+        return newList;
+    }
+    default: {
+        return list;
+    }
+    }
+}
+
+function success(pfx) {
+    return {
+        [`${pfx}IsSucceed`]: true,
+        [`${pfx}IsFetching`]: false,
+        [`${pfx}IsFailed`]: false,
+    };
+}
+function fetching(pfx) {
+    return {
+        [`${pfx}IsSucceed`]: false,
+        [`${pfx}IsFetching`]: true,
+        [`${pfx}IsFailed`]: false,
+    };
+}
+function fail(pfx) {
+    return {
+        [`${pfx}IsSucceed`]: true,
+        [`${pfx}IsFetching`]: false,
+        [`${pfx}IsFailed`]: false,
+    };
+}
 
 export default function (state = initState, action) {
     switch (action.type) {
     case COMPLETE_BOOK: {
-        const newState = { list: [...state.list], activeBook: state.activeBook };
-
-        const item = newState.list[action.payload];
-        item.active = !item.active;
-        newState.list[action.payload] = item;
-        return newState;
+        return {
+            ...state,
+            list: listReducer(state.list, action),
+        };
     }
-    case ADD_BOOK: {
-        action.payload.id = state.list.length;
-        const newState = { list: [...state.list, action.payload], activeBook: state.activeBook };
-        return newState;
+
+
+    case GET_BOOKS_SUCCESS: {
+        return { ...state, list: listReducer(state.list, action), ...success('get') };
+    }
+    case GET_BOOKS_FETCH: {
+        return { ...state, ...fetching('get') };
+    }
+    case GET_BOOKS_FAIL: {
+        return { ...state, ...fail('get') };
+    }
+
+
+    case ADD_BOOK_SUCCESS: {
+        return { ...state, list: listReducer(state.list, action), ...success('add') };
+    }
+    case ADD_BOOK_FETCH: {
+        return { ...state, ...fetching('add') };
+    }
+    case ADD_BOOK_FAIL: {
+        return { ...state, ...fail('add') };
     }
     default: {
         return state;

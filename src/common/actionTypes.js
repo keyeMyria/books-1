@@ -1,0 +1,9 @@
+export const COMPLETE_BOOK = 'COMPLETE_BOOK';
+
+export const GET_BOOKS_FETCH = 'GET_BOOK_FETCH';
+export const GET_BOOKS_SUCCESS = 'GET_BOOK_SUCCESS';
+export const GET_BOOKS_FAIL = 'GET_BOOK_FAIL';
+
+export const ADD_BOOK_FETCH = 'ADD_BOOK_FETCH';
+export const ADD_BOOK_SUCCESS = 'ADD_BOOK_SUCCESS';
+export const ADD_BOOK_FAIL = 'ADD_BOOK_FAIL';

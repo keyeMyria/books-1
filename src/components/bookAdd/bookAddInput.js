@@ -5,7 +5,7 @@ import { Button } from 'react-toolbox/lib/button';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { addBook } from '../../actions';
+import addBook from '../../actions/addBookAction';
 
 class BookAddInput extends Component {
     constructor(props) {
@@ -29,6 +29,7 @@ class BookAddInput extends Component {
                 <Button
                   icon="library_add" label="add to bookself"
                   onClick={e => this.addBookHandler(e)} flat
+                  disabled={!this.state.title || this.props.addingBook || this.props.gettingBooks}
                 />
             </section>
         );
@@ -37,10 +38,18 @@ class BookAddInput extends Component {
 
 BookAddInput.propTypes = {
     addBook: React.PropTypes.func,
+    addingBook: React.PropTypes.bool,
+    gettingBooks: React.PropTypes.bool,
 };
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ addBook }, dispatch);
 }
+function mapStateToProps(state) {
+    return {
+        addingBook: state.shelf.addIsFetching,
+        gettingBooks: state.shelf.getIsFetching,
+    };
+}
 
-export default connect(null, mapDispatchToProps)(BookAddInput);
+export default connect(mapStateToProps, mapDispatchToProps)(BookAddInput);

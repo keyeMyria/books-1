@@ -12,3 +12,17 @@
 [info] Public Directory: public
 [info] 
 [info] Server listening at: http://localhost:5000
+[debug] ----------------------------------------------------------------------
+[debug] Command:      /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] CLI Version:  3.2.1
+[debug] Platform:     linux
+[debug] Node Version: v7.4.0
+[debug] Time:         Wed Feb 01 2017 10:49:09 GMT+0200 (EET)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[info] Starting Firebase development server...
+[info] 
+[info] Project Directory: /home/vova/Documents/proj/books
+[info] Public Directory: public
+[info] 
+[info] Server listening at: http://localhost:5000

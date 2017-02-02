@@ -27,7 +27,7 @@ function getBookIsFetching() {
 export default function getBooks() {
     // const promise = database.ref('${shelfName}').once();
     const promise = new Promise((resolve) => {
-        setTimeout(() => resolve(database.getBooks()), 2000);
+        setTimeout(() => resolve(database.getBooks()), 800);
     });
     return (dispatch) => {
         dispatch(getBookIsFetching());

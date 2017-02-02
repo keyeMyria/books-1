@@ -13,17 +13,17 @@ const addBook = function (name, book) {
 const init = [{
     id: 0,
     title: 'Harry Potter',
-    started: true,
+    started: false,
 },
 {
     id: 1,
     title: 'Bible',
-    started: true,
+    started: false,
 },
 {
     id: 2,
     title: 'The Stories of the Meekhan Marches. North – South',
-    started: true,
+    started: false,
 }];
 if (!getBooks().length) {
     init.forEach(x => addBook(defaultName, x));

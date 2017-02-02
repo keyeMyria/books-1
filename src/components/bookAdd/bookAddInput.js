@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 
 import addBook from '../../actions/addBookAction';
 import { getBookSuggests } from '../../actions/getBooksActions';
+import styles from './styles.scss';
 
 
 class BookAddInput extends Component {
@@ -24,8 +25,9 @@ class BookAddInput extends Component {
 
     render() {
         return (
-            <section>
+            <div className={styles.addBook}>
                 <Input
+                  theme={styles}
                   type="text" label="Title" name="bookTitle" value={this.state.title}
                   onChange={e => this.setState({ title: e })} maxLength={50}
                 />
@@ -34,7 +36,7 @@ class BookAddInput extends Component {
                   onClick={e => this.addBookHandler(e)} flat
                   disabled={!this.state.title || this.props.addingBook || this.props.gettingBooks}
                 />
-            </section>
+            </div>
         );
     }
 }

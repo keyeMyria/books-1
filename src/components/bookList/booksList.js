@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
 import ProgressBar from 'react-toolbox/lib/progress_bar';
-import BooksListItem from './booksListItem';
+import { Button } from 'react-toolbox/lib/button';
+import { List, ListItem, ListSubHeader } from 'react-toolbox/lib/list';
+
 import completeBook from '../../actions';
 import getBooks, { getBookSuggestPreview } from '../../actions/getBooksActions';
 
-import './books.scss';
+import styles from './books.scss';
 
 function getPreview(item) {
     const path = item.volumeInfo && item.volumeInfo.imageLinks;
@@ -20,16 +23,28 @@ class BooksList extends Component {
         super(props);
 
         this.props.getBooks();
-        this.onBookClick = this.onBookClick.bind(this);
     }
-    onBookClick(id) {
-        this.props.completeBook(id);
-    }
-
 
     renderList() {
         return this.props.books.map(
-            b => <BooksListItem key={b.id} book={b} onClick={this.onBookClick} />
+            b => (
+                <ListItem
+                  theme={styles}
+                  key={b.id} className={styles.book}
+                  avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Placeholder_book.svg/1000px-Placeholder_book.svg.png"
+                  caption={b.title}
+                  legend="Jonathan 'Jon' Osterman"
+                  rightIcon={!b.started ? 'star_border' : 'star_half'}
+                  rightActions={[
+                      <Link to={`/book/${b.id}`}>
+                          <Button theme={styles} onClick={() => this.props.completeBook(b.id)}>
+                            Details
+                        </Button>
+                      </Link>,
+                      <Button onClick={() => this.props.completeBook(b.id)}>Start</Button>,
+                  ]}
+                />
+            )
         );
     }
 
@@ -54,8 +69,11 @@ class BooksList extends Component {
             ? this.renderList()
             : <ProgressBar mode="indeterminate" />;
         return (
-            <div className="books">
-                { content }
+            <div className={styles.books}>
+                <List selectable ripple>
+                    <ListSubHeader caption="Books" />
+                    { content }
+                </List>
                 { this.renderSuggests() }
             </div>
         );

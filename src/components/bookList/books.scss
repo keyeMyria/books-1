@@ -1,6 +1,14 @@
+@import "~react-toolbox/lib/list/theme";
+
 .books {
-  text-align: left;
+    width: 90%;
+    margin: 0 auto;
 }
-.book-done {
-    text-decoration: line-through;
+.itemContentRoot{
+    max-width: 50%;
+}
+.itemText {
+    max-width: 95%;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }

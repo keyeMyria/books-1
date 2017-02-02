@@ -39,9 +39,8 @@ function listReducer(list, action) {
     }
     case COMPLETE_BOOK: {
         const newList = [...list];
-        const item = newList[action.payload];
+        const item = newList.find(e => e.id === action.payload);
         item.started = !item.started;
-        newList[action.payload] = item;
         return newList;
     }
     default: {
